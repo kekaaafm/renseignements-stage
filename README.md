@@ -44,7 +44,41 @@ Note que j'audrais du mettre plus haut mais si la commande "git" n'est pas recon
 Tout est dans le nom :)
    
 Et voila ! Maintenant vous êtes prêt pour développer sur le projet git !
+ 
+### Comment commit ?
    
+#### 0. Note 
+   
+Il se peut que votre éditeur prenne en charge git et propose une interface graphique pour faire vos commits. Vu qu'il existe d'éditeurs que d'atomes dans l'univers (presque (je pense)), j'ai pas envie de tout détailler pour tous les éditeurs. Je vais donc donner la marche a suivre avec un invité de commande.
+   
+#### 1. Ouvrir un cmd
+  
+C'est pas trop compliqué (win + r puis tapez cmd (faudra aussi naviguer jusqu'au dossier de travail))
+  
+#### 2. Ajouter les fichiers modifiers à git
+  
+C'est simple c'est ``git add .``
+
+
+Explication pour les nerds :
+  
+Enfait, git n'ajoute pas les fichiers qu'on vient de modifier, il faut donc les ajouter à "l'espace de travail" avant des les commit
+  
+#### 3. Fait un commit
+  
+Alors, c'est l'étape la plus crutiale et la plus critique (pour une fois c'est pas de l'humour)
+  
+La commande a effectuer pour que tous les fichiers dans l'espace de travail soient ajouté au commit est : ``git commit -m "message"``
+ 
+TRÈS IMPORTANT : Il est très compliqué de revenir en arrière une fois qu'un commit a été fait donc il faut faire très attention quant au message du commit qu'on donne ! COnsidérez le comme irréversible !!!
+ 
+TRÈS IMPORTANT 2 : Mettez des noms qui font sens pour qu'on s'y retrouve :)
+ 
+ #### 4. Faire un git push (pour publier ses modifications)
+ 
+ #### 5. ET SURTOUT FAIRE DES ``GIT PULL`` QUAND QUELQU'UN D'AUTRE A FAIT UNE MODIFICATION
+   
+ :)
    
 
   
