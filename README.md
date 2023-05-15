@@ -8,7 +8,40 @@ Le projet renseignements-stage à pour but de rendre le processus de remplissage
  - CSS
  - JS
  
-## MCD
+## Fonctionnalités
+### En tant qu'utilisateur :
+- Compte utilisateur : 	Créer / Modifier
+- Compte utilisateur : 	Modifier un mot de passe
+- Stage :		Créer 		
+- Stage :		Modifier			(accessible pour les stages ayant un statut "Stage en cours de création")
+- Stage :		Changer le statut		(uniquement en "Stage en cours d'approbation")
+- Stage :		Générer un fichier PDF
+- Entreprise :		Créer / Modifier 		(uniquement pour l'entreprise en lien avec le stage)
+- Contact :		Créer / Modifier 		(uniquement les contacts en lien avec l'entreprise du stage)
+
+### En tant qu'enseignant :
+- Stage :		Consulter			(tous les stages sauf statut "Stage en cours de création")
+- Stage :		Approuver 			(stages ayant un statut "Stage en cours d'approbation" => "Stage approuvé")
+- Stage :		Ne pas approuver un stage	(stages ayant un statut "Stage en cours d'approbation" => "Stage en cours de création)
+- Stage :		Générer un fichier PDF		(tous les stages sauf statut "Stage en cours de création")
+- Stage :		Terminer			(stages ayant un statut "Stage affecté" => "Stage terminé")
+- Stage :		Annuler				(tous les stages sauf statut "Stage en cours de création" => "Stage annulé")
+
+### En tant qu'administrateur :
+- Stage :		Affecter à un enseignant	(accessible pour les stages ayant un statut "Stage approuvé" => "Stage affecté")
+- Stage :		Générer un fichier PDF
+- Entreprise :		Créer / Modifier 		
+- Contact :		Créer / Modifier 		
+
+### WORKFLOW d'un stage :
+- Stage en cours de création
+- Stage en cours d'approbation	(Note : par un enseignant)
+- Stage approuvé
+- Stage affecté
+- Stage terminé
+- Stage annulé
+
+## Modèle Conceptuel de Données
 
 ![image](https://github.com/MaitreRouge/renseignements-stage/assets/39885214/d362bd64-1cd4-48b1-86c9-ee3ab52168a2)
 
