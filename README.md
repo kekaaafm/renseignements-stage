@@ -14,20 +14,21 @@ Le projet renseignements-stage à pour but de rendre le processus de remplissage
 - Compte utilisateur : 	Modifier un mot de passe
 - Stage :		Créer 		
 - Stage :		Modifier			(accessible pour les stages ayant un statut "Stage en cours de création")
-- Stage :		Changer le statut		(uniquement en "Stage en cours d'approbation")
+- Stage :		Changer le statut		(uniquement de "Stage en cours de création" à "Stage en cours d'approbation")
+- Stage :		Générer un fichier PDF	
 - Entreprise :		Créer / Modifier 		(uniquement pour l'entreprise en lien avec le stage)
 - Contact :		Créer / Modifier 		(uniquement les contacts en lien avec l'entreprise du stage)
 
 ### En tant qu'enseignant :
 - Stage :		Consulter			(tous les stages sauf statut "Stage en cours de création")
-- Stage :		Approuver 			(stages ayant un statut "Stage en cours d'approbation" => "Stage approuvé")
-- Stage :		Ne pas approuver un stage	(stages ayant un statut "Stage en cours d'approbation" => "Stage en cours de création)
+- Stage :		Approuver 			(de "Stage en cours d'approbation" à "Stage approuvé")
+- Stage :		Ne pas approuver un stage	(de "Stage en cours d'approbation" à "Stage en cours de création)
 - Stage :		Générer un fichier PDF		(tous les stages sauf statut "Stage en cours de création")
-- Stage :		Terminer			(stages ayant un statut "Stage affecté" => "Stage terminé")
-- Stage :		Annuler				(tous les stages sauf statut "Stage en cours de création" => "Stage annulé")
 
 ### En tant que RS :
-- Stage :		Affecter à un enseignant	(accessible pour les stages ayant un statut "Stage approuvé" => "Stage affecté")
+- Stage :		Affecter à un enseignant	(de "Stage approuvé" => "Stage affecté")
+- Stage :		Terminer			(de "Stage affecté" à "Stage terminé")
+- Stage :		Annuler				(de tous les statut à "Stage annulé")
 - Stage :		Générer un fichier PDF
 - Entreprise :		Créer / Modifier 		
 - Contact :		Créer / Modifier 		
