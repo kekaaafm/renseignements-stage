@@ -8,6 +8,8 @@ if (!isEleve()) {
 
 $student = fetchEleveData();
 
+$section = fetchclasse($student["idEleve"]);
+
 if (empty($_SESSION["createfiche"])) {
     $_SESSION["createfiche"] = [];
 }
@@ -113,9 +115,9 @@ switch ($step) {
             $req->execute([
                 "titreStage" => $_SESSION["createfiche"][0]["titre"],
                 "descriptifStage" => $_SESSION["createfiche"][0]["description"],
-                "dateDebutStage" => $_SESSION["createfiche"][0]["description"],
-                "dateFinStage" => $_SESSION["createfiche"][0]["description"],
-                "dureeHebdoStage" => $_SESSION["createfiche"][0]["description"],
+                "dateDebutStage" => $_SESSION["createfiche"][0]["datedebut"],
+                "dateFinStage" => $_SESSION["createfiche"][0]["datefin"],
+                "dureeHebdoStage" => $_SESSION["createfiche"][0]["heures"],
                 "activiteslStage" => $_SESSION["createfiche"][0]["description"],
                 "lieuStage" => $adrStage,
                 "idEleve" => $student["idEleve"],
@@ -283,7 +285,7 @@ if ($_POST) {
                                        class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                        aria-current="page">Dashboard</a>
 
-                                    <a href="profil.php.php"
+                                    <a href="profil.php"
                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
                                         profil
                                     </a>
@@ -511,7 +513,7 @@ if ($_POST) {
                                     <div class="mt-2">
                                         <input type="text" id="nom" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="XXXX">
+                                               value=<?= $section["nomCourtSection"] ?>>
                                     </div>
                                 </div>
 
@@ -869,7 +871,7 @@ if ($_POST) {
 
                                 <div class="sm:col-span-3">
                                     <label for="mobileContact"
-                                           class="block text-sm font-medium leading-6 text-gray-900">mobileContact</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Mobile contact</label>
                                     <div class="mt-2">
                                         <input type="text" id="mobileContact" name="mobileContact" required
                                                class=" block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -879,7 +881,7 @@ if ($_POST) {
                                 <div class="sm:col-span-3">
                                     <div class="flex justify-between">
                                         <label for="fixeContact"
-                                               class="block text-sm font-medium leading-6 text-gray-900">fixeContact</label>
+                                               class="block text-sm font-medium leading-6 text-gray-900">Fixe contact</label>
                                         <span class="text-sm leading-6 text-gray-500"
                                               id="email-optional">Optionnel</span>
                                     </div>
@@ -891,7 +893,7 @@ if ($_POST) {
 
                                 <div class="sm:col-span-3">
                                     <label for="mailContact"
-                                           class="block text-sm font-medium leading-6 text-gray-900">mailContact</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Mail contact</label>
                                     <div class="mt-2">
                                         <input type="email" id="mailContact" name="mailContact" required
                                                class=" block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -900,7 +902,7 @@ if ($_POST) {
 
                                 <div class="sm:col-span-3">
                                     <label for="fonctionContact"
-                                           class="block text-sm font-medium leading-6 text-gray-900">Test</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Profession</label>
                                     <select id="fonctionContact" name="fonctionContact"
                                             class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         <?php foreach ($fonctions as $f): ?>
@@ -1053,7 +1055,7 @@ if ($_POST) {
 
                                 <div class="sm:col-span-3">
                                     <label for="mobileContact"
-                                           class="block text-sm font-medium leading-6 text-gray-900">mobileContact</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Mobile contact</label>
                                     <div class="mt-2">
                                         <input type="text" id="mobileContact" name="mobileContact" required
                                                class=" block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -1063,7 +1065,7 @@ if ($_POST) {
                                 <div class="sm:col-span-3">
                                     <div class="flex justify-between">
                                         <label for="fixeContact"
-                                               class="block text-sm font-medium leading-6 text-gray-900">fixeContact</label>
+                                               class="block text-sm font-medium leading-6 text-gray-900">Fixe contact</label>
                                         <span class="text-sm leading-6 text-gray-500"
                                               id="email-optional">Optionnel</span>
                                     </div>
@@ -1075,7 +1077,7 @@ if ($_POST) {
 
                                 <div class="sm:col-span-3">
                                     <label for="mailContact"
-                                           class="block text-sm font-medium leading-6 text-gray-900">mailContact</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Mail contact</label>
                                     <div class="mt-2">
                                         <input type="email" id="mailContact" name="mailContact" required
                                                class=" block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -1084,7 +1086,7 @@ if ($_POST) {
 
                                 <div class="sm:col-span-3">
                                     <label for="fonctionContact"
-                                           class="block text-sm font-medium leading-6 text-gray-900">Test</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Profession</label>
                                     <select id="fonctionContact" name="fonctionContact"
                                             class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         <?php foreach ($fonctions as $f): ?>
@@ -1175,7 +1177,7 @@ if ($_POST) {
                                     <div class="mt-2">
                                         <input type="text" id="nom" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="<?= $_SESSION["user"]["nomUtil"] ?>">
+                                               value="<?= strtoupper($_SESSION["user"]["nomUtil"]) ?>">
                                     </div>
                                 </div>
 
@@ -1185,7 +1187,7 @@ if ($_POST) {
                                     <div class="mt-2">
                                         <input type="text" id="prenom" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="<?= $_SESSION["user"]["prenomUtil"] ?>">
+                                               value="<?= ucfirst($_SESSION["user"]["prenomUtil"]) ?>">
                                     </div>
                                 </div>
 
@@ -1196,7 +1198,7 @@ if ($_POST) {
                                     <div class="mt-2">
                                         <input type="text" id="classe" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="XXXX">
+                                               value="<?= $section["nomCourtSection"] ?>">
                                     </div>
                                 </div>
 
@@ -1279,7 +1281,7 @@ if ($_POST) {
                                     <div class="mt-2">
                                         <input type="text" id="nomEntreprise" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="<?= $entreprise["nomEntreprise"] ?>">
+                                               value="<?= strtoupper($entreprise["nomEntreprise"]) ?>">
                                     </div>
                                 </div>
 
@@ -1357,7 +1359,7 @@ if ($_POST) {
                                             </select>
                                         </div>
                                         <input type="text" id="nomContact" disabled
-                                               value="<?= strtoupper($responsable["nomContact"]) . " " . $responsable["prenomContact"] ?>"
+                                               value="<?= strtoupper($responsable["nomContact"]) . " " . ucfirst($responsable["prenomContact"]) ?>"
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 pl-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </div>
                                 </div>
@@ -1402,7 +1404,7 @@ if ($_POST) {
                                             </select>
                                         </div>
                                         <input type="text" id="nomContact" disabled
-                                               value="<?= strtoupper($contact["nomContact"]) . " " . $contact["prenomContact"] ?>"
+                                               value="<?= strtoupper($contact["nomContact"]) . " " . ucfirst($contact["prenomContact"]) ?>"
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 pl-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </div>
                                 </div>

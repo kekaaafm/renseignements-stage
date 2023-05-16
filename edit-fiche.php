@@ -9,11 +9,25 @@ if (empty($_GET["id"])) {
     header("Location: dashboard.php");
 }
 
-//$req = $db->prepare("SELECT * FROM stage WHERE")
-
+$req = $db->prepare("SELECT * FROM stage WHERE idstage = :id");
+$req->execute([
+        "id" => $_GET['id']
+]);
+$stage = $req->fetch();
 $student = fetchEleveData();
+$entreprise =fetchEntrepriseData($stage["idEntreprise"]);
+$section = fetchclasse($student["idEleve"]);
+$responsable = fetchEntrepriseResponsable($entreprise["idEntreprise"]);
+$contact = fetchContactData($responsable["idContact"]);
 
 
+if(isset($_GET['delete'])){
+    $req = $db->prepare("DELETE FROM stage WHERE idStage=:id ");
+    $req->execute([
+        "id" => $_GET['id']
+    ]);
+    header("Location: dashboard.php");
+}
 //var_dump($step);
 
 ?>
@@ -42,7 +56,7 @@ $student = fetchEleveData();
                                            class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                            aria-current="page">Dashboard</a>
 
-                                        <a href="profil.php.php"
+                                        <a href="profil.php"
                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
                                             profil
                                         </a>
@@ -186,120 +200,6 @@ $student = fetchEleveData();
         <main class="-mt-32">
             <div class="mx-auto max-w-7xl px-4 pb-12 pt-12 sm:px-6 lg:px-8 bg-white rounded-lg border-black bg-white">
 
-                    <form method="post" class="mx-auto max-w-2xl" id="profileStudent">
-                        <div class="space-y-12">
-                            <div class="border-b border-gray-900/10 pb-12">
-                                <h2 class="text-base font-semibold leading-7 text-gray-900">L'étudiant</h2>
-                                <p class="mt-1 text-sm leading-6 text-gray-600">La plupart de ces champs sont
-                                    préremplis
-                                    avec les informations fournies dans ton profil. Si elles sont incorrectes,
-                                    dirige-toi
-                                    directement vers ton profil pour les modifier</p>
-
-                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-2">
-                                        <label for="prenom"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Prénom</label>
-                                        <div class="mt-2">
-                                            <input type="text" id="prenom" disabled
-                                                   class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                   value="<?= $_SESSION["user"]["prenomUtil"] ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-2">
-                                        <label for="nom"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Nom</label>
-                                        <div class="mt-2">
-                                            <input type="text" id="nom" disabled
-                                                   class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                   value="<?= $_SESSION["user"]["nomUtil"] ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-2">
-                                        <label for="nom"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Classe</label>
-                                        <div class="mt-2">
-                                            <input type="text" id="nom" disabled
-                                                   class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                   value="XXXX">
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-6">
-                                        <label for="email"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Adresse
-                                            de résidence pendant le stage :</label>
-                                        <div class="mt-2">
-                                            <input id="email" type="text" autocomplete="email" disabled
-                                                   value="<?= $student["numAdrEleve"] . " " . $student["libAdrEleve"] . " " . $student["codePostalAdrEleve"] . " " . $student["villeAdrEleve"] ?>"
-                                                   class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-3">
-                                        <label for="datedebut"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Date de
-                                            début de
-                                            stage</label>
-                                        <div class="mt-2">
-                                            <input type="date" id="datedebut" name="datedebut"
-                                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            >
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-3">
-                                        <label for="datefin"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Date de fin
-                                            de
-                                            stage</label>
-                                        <div class="mt-2">
-                                            <input type="date" id="datefin" name="datefin"
-                                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            >
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-3">
-                                        <label for="heures"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Heures
-                                            de travail hebdomadaires</label>
-                                        <div class="relative mt-2 rounded-md shadow-sm">
-                                            <input type="number" name="heures" id="heures"
-                                                   class="block w-full rounded-md border-0 py-1.5 pl-3 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            <div
-                                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                            <span class="text-gray-500 sm:text-sm mr-3"
-                                                  id="price-currency">heures</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="sm:col-span-3">
-                                        <label for="titre"
-                                               class="block text-sm font-medium leading-6 text-gray-900">Titre du
-                                            stage</label>
-                                        <div class="mt-2">
-                                            <input type="text" name="titre" id="titre"
-                                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="mt-6 flex items-center justify-end gap-x-6">
-                            <button type="submit"
-                                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Sauvegarder
-                            </button>
-                        </div>
-                    </form>
-
                 <div class="mx-auto max-w-2xl">
                     <div class="space-y-12">
                         <div class="border-b border-gray-900/10 pb-6">
@@ -343,7 +243,7 @@ $student = fetchEleveData();
                                     <div class="mt-2">
                                         <input type="text" id="classe" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="XXXX">
+                                               value="<?= $section["nomCourtSection"] ?>">
                                     </div>
                                 </div>
 
@@ -599,7 +499,7 @@ $student = fetchEleveData();
                                         différent de l'organisme signataire)</label>
                                     <div class="mt-2">
                                         <input type="email" name="AdresseStage" id="AdresseStage"
-                                               value="<?= $adrStage ?>" disabled
+                                               value="<?=  $entreprise["numAdrEntreprise"] . " " . $entreprise["libAdrEntreprise"] ?>" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </div>
                                 </div>
@@ -622,9 +522,13 @@ $student = fetchEleveData();
                     </div>
 
                     <div class="mt-6 flex items-center justify-end gap-x-6">
-                        <a href="create-fiche.php?step=5&confirm=1"
+                        <a href="edit-fiche.php?id=<?= $_GET["id"]?>&delete=1"
+                           class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                            Supprimer
+                        </a>
+                        <a href="dashboard.php"
                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                            Sauvegarder
+                            Retour
                         </a>
                     </div>
                 </div>

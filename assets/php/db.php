@@ -110,3 +110,13 @@ function fetchEntrepriseResponsable(string $id): array|bool
     return $req->fetch();
 }
 
+function fetchclasse(string $idElv): array|bool
+{
+    global $db;
+    $req = $db->prepare("SELECT s.idSection, s.nomCourtSection, s.nomLongSection FROM section as s, eleve as e, inscription as i WHERE e.idEleve = i.idEleve AND i.idSection = s.idSection AND e.idEleve = :id");
+    $req->execute([
+        "id" => $idElv
+    ]);
+    return $req->fetch();
+}
+

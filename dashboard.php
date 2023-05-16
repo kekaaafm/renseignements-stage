@@ -228,7 +228,7 @@ if (isEleve()) {
                                                     </svg>
                                                     <p>
                                                         Commence le
-                                                        <time datetime="2020-01-07">7 Janv 2020</time>
+                                                        <?= $stage["dateDebutStage"] ?>
                                                     </p>
                                                 </div>
                                                 <?php endif; ?>
@@ -260,7 +260,7 @@ if (isEleve()) {
                                 <path
                                     d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
                             </svg>
-                            Créer ma première fiche de renseignements
+                            Créer ma fiche de renseignements
                         </a>
                     </div>
                 </div>
