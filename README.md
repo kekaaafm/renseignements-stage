@@ -15,7 +15,6 @@ Le projet renseignements-stage à pour but de rendre le processus de remplissage
 - Stage :		Créer 		
 - Stage :		Modifier			(accessible pour les stages ayant un statut "Stage en cours de création")
 - Stage :		Changer le statut		(uniquement en "Stage en cours d'approbation")
-- Stage :		Générer un fichier PDF
 - Entreprise :		Créer / Modifier 		(uniquement pour l'entreprise en lien avec le stage)
 - Contact :		Créer / Modifier 		(uniquement les contacts en lien avec l'entreprise du stage)
 
@@ -27,7 +26,7 @@ Le projet renseignements-stage à pour but de rendre le processus de remplissage
 - Stage :		Terminer			(stages ayant un statut "Stage affecté" => "Stage terminé")
 - Stage :		Annuler				(tous les stages sauf statut "Stage en cours de création" => "Stage annulé")
 
-### En tant qu'administrateur :
+### En tant que RS :
 - Stage :		Affecter à un enseignant	(accessible pour les stages ayant un statut "Stage approuvé" => "Stage affecté")
 - Stage :		Générer un fichier PDF
 - Entreprise :		Créer / Modifier 		
