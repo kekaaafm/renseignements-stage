@@ -120,3 +120,4 @@ function fetchclasse(string $idElv): array|bool
     return $req->fetch();
 }
 
+
