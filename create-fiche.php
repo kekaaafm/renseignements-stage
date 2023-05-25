@@ -104,14 +104,14 @@ switch ($step) {
         $contact = fetchContactData($_SESSION["createfiche"][2]);
         $responsable = fetchEntrepriseResponsable($_SESSION["createfiche"][1]);
 
-        $adrStage = null;
+        $adrStage = 'ok';
         if ($_SESSION["createfiche"][3] !== ($entreprise["numAdrEntreprise"] . " " . $entreprise["libAdrEntreprise"] . " " . $entreprise["codePostalAdrEntreprise"] . " " . $entreprise["villeAdrEntreprise"])) {
             $adrStage = $_SESSION["createfiche"][3];
         }
 
         if (!empty($_GET["confirm"]) && $_GET["confirm"] == 1) {
-            $req = $db->prepare("INSERT INTO `stage`(`titreStage`, `descriptifStage`, `dateDebutStage`, `dateFinStage`, `dureeHebdoStage`, `activiteslStage`, `lieuStage`, `idEleve`, `idEntreprise`, `idAnneeScolaire`, `idEnseignant`, `idTuteur`) 
-                                        VALUES (:titreStage,:descriptifStage,:dateDebutStage,:dateFinStage,:dureeHebdoStage,:activiteslStage,:lieuStage,:idEleve,:idEntreprise,:idAnneeScolaire,:idEnseignant,:idTuteur)");
+            $req = $db->prepare("INSERT INTO `stage`(`titreStage`, `descriptifStage`, `dateDebutStage`, `dateFinStage`, `dureeHebdoStage`, `activiteslStage`, `lieuStage`, `idEleve`,`idStatutStage`, `idEntreprise`, `idAnneeScolaire`, `idEnseignant`, `idContact`) 
+                                        VALUES (:titreStage,:descriptifStage,:dateDebutStage,:dateFinStage,:dureeHebdoStage,:activiteslStage,:lieuStage,:idEleve,:idStatutStage,:idEntreprise,:idAnneeScolaire,:idEnseignant,:idTuteur)");
             $req->execute([
                 "titreStage" => $_SESSION["createfiche"][0]["titre"],
                 "descriptifStage" => $_SESSION["createfiche"][0]["description"],
@@ -122,6 +122,7 @@ switch ($step) {
                 "lieuStage" => $adrStage,
                 "idEleve" => $student["idEleve"],
                 "idEntreprise" => $entreprise["idEntreprise"],
+                "idStatutStage" => 2,
                 "idAnneeScolaire" => 2,
                 "idEnseignant" => 1,
                 "idTuteur" => $_SESSION["createfiche"][2]
@@ -174,8 +175,8 @@ if ($_POST) {
                     createSessionError("notAllFieldsFilled");
                 } else {
                     $req = $db->prepare("
-                        INSERT INTO `entreprise`(`nomEntreprise`, `missionEntreprise`, `numAdrEntreprise`, `libAdrEntreprise`, `codePostalAdrEntreprise`, `villeAdrEntreprise`, `telephoneEntreprise`, `mailEntreprise`, `siretEntreprise`) 
-                                          VALUES (:nomEntreprise, :missionEntreprise, :numAdrEntreprise, :libAdrEntreprise, :codePostalAdrEntreprise, :villeAdrEntreprise, :telephoneEntreprise, :mailEntreprise, :siretEntreprise)");
+                        INSERT INTO `entreprise`(`nomEntreprise`, `missionEntreprise`, `numAdrEntreprise`, `libAdrEntreprise`, `codePostalAdrEntreprise`, `villeAdrEntreprise`, `telEntreprise`, `mailEntreprise`, `siretEntreprise`) 
+                                          VALUES (:nomEntreprise, :missionEntreprise, :numAdrEntreprise, :libAdrEntreprise, :codePostalAdrEntreprise, :villeAdrEntreprise, :telEntreprise, :mailEntreprise, :siretEntreprise)");
                     $req->execute([
                         "nomEntreprise" => $_POST["nomEntreprise"],
                         "missionEntreprise" => $_POST["descriptionEntreprise"],
@@ -183,7 +184,7 @@ if ($_POST) {
                         "libAdrEntreprise" => $_POST["voieEntreprise"],
                         "codePostalAdrEntreprise" => $_POST["codePostalEntreprise"],
                         "villeAdrEntreprise" => $_POST["villeEntreprise"],
-                        "telephoneEntreprise" => $_POST["telEntreprise"],
+                        "telEntreprise" => $_POST["telEntreprise"],
                         "mailEntreprise" => $_POST["mailEntreprise"],
                         "siretEntreprise" => $_POST["siretEntreprise"]
                     ]);
@@ -195,7 +196,7 @@ if ($_POST) {
 //                    var_dump($rep);
 
                     $req = $db->prepare("
-                        INSERT INTO `contact`(`titreContact`, `nomContact`, `prenomContact`, `mobileContact`, `fixeContact`, `mailContact`, `isRespContact`, `isActifContact`, `idFonction`, `idEntreprise`) 
+                        INSERT INTO `contact`(`titreContact`, `nomContact`, `prenomContact`, `telMobileContact`, `telFixeContact`, `mailContact`, `isRespContact`, `isActifContact`, `idFonction`, `idEntreprise`) 
                             VALUES (:titreContact,:nomContact,:prenomContact,:mobileContact,:fixeContact,:mailContact,:isRespContact,:isActifContact,:idFonction,:idEntreprise)");
                     $req->execute([
                         "titreContact" => $_POST["titreContact"],
@@ -226,7 +227,7 @@ if ($_POST) {
             } else {
                 var_dump($_SESSION["createfiche"][2]);
                 $req = $db->prepare("
-                            INSERT INTO `contact`(`titreContact`, `nomContact`, `prenomContact`, `mobileContact`, `fixeContact`, `mailContact`, `isRespContact`, `isActifContact`, `idFonction`, `idEntreprise`) 
+                            INSERT INTO `contact`(`titreContact`, `nomContact`, `prenomContact`, `mobileContact`, `telFixeContact`, `mailContact`, `isRespContact`, `isActifContact`, `idFonction`, `idEntreprise`) 
                                 VALUES (:titreContact,:nomContact,:prenomContact,:mobileContact,:fixeContact,:mailContact,:isRespContact,:isActifContact,:idFonction,:idEntreprise)");
                 $req->execute([
                     "titreContact" => $_POST["titreContact"], //
@@ -1302,7 +1303,7 @@ if ($_POST) {
                                     <div class="mt-2">
                                         <input type="text" id="classe" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="<?= $entreprise["telephoneEntreprise"] ?>">
+                                               value="<?= $entreprise["telEntreprise"] ?>">
                                     </div>
                                 </div>
 
@@ -1424,7 +1425,7 @@ if ($_POST) {
                                         téléphone</label>
                                     <div class="mt-2">
                                         <input type="text" name="numContact" id="numContact"
-                                               value="<?= $contact["mobileContact"] ?>" disabled
+                                               value="<?= $contact["telMobileContact"] ?>" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@ if (!isEleve() && !isProf()) {
 }
 
 if (isEleve()) {
-    $req = $db->prepare("SELECT * FROM stage,entreprise WHERE idEleve = :id AND entreprise.idEntreprise = stage.idEntreprise");
+    $req = $db->prepare("SELECT * FROM stage,entreprise,statutstage WHERE idEleve = :id AND entreprise.idEntreprise = stage.idEntreprise AND statutstage.idStatutStage=stage.idStatutStage");
     $req->execute([
         "id" => $_SESSION["user"]["idUtil"]
     ]);
@@ -191,7 +191,7 @@ if (isEleve()) {
                                             <div class="flex items-center justify-between">
                                                 <p class="truncate text-sm font-medium text-indigo-600"><?= $stage["titreStage"] ?? "- Sans nom -" ?></p>
                                                 <div class="ml-2 flex flex-shrink-0">
-                                                    <?php if(!$stage["isValideStage"]) ?>
+                                                    <?php if(!$stage["libStatutStage"]) ?>
                                                     <p class="inline-flex rounded-full bg-red-100 px-2 text-xs font-semibold leading-5 text-red-800">
                                                         Non validé</p>
                                                 </div>
