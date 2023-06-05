@@ -29,6 +29,14 @@ $dateFin = $_POST['datefin'] ?? '';
 $enseignantReferent = $_POST['enseignant'] ?? '';
 $descriptionStage = $_POST['description'] ?? '';
 
+if(isset($_GET['delete'])){
+    $req = $db->prepare("DELETE FROM stage WHERE idStage=:id ");
+    $req->execute([
+        "id" => $_GET['id']
+    ]);
+    header("Location: gestion-prof.php");
+}
+
 
 if (!empty($_POST)){
 //    die(var_dump($statutFiche));
@@ -94,6 +102,8 @@ $req->execute([
     "idStage" => $id
 ]);
 $eleve = $req->fetch();
+
+
 
 
 ?>
@@ -220,6 +230,10 @@ $eleve = $req->fetch();
                                     <p class="mt-1 text-sm leading-6 text-gray-600">Voici les informations préremplies
                                         que l'élève a fait de l'entreprise</p>
                                 </div>
+                            </div>
+                            <div class="mt-6 flex items-center justify-end gap-x-6">
+                                <a href="gen-pdf.php?id=<?= $eleve["idStage"] ?>"><button type="button"  class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Générer le PDF</button></a>
+
                             </div>
                     </div>
                 </div>
@@ -395,7 +409,7 @@ $eleve = $req->fetch();
                 </div>
 
 
-            </div>
+
 
 
 
@@ -406,7 +420,13 @@ $eleve = $req->fetch();
                         Save
                     </button>
                 </div>
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <a href="edit-prof.php?id=<?= $_GET["id"]?>&delete=1"
+                   class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                    Supprimer
+                </a>
         </div>
+
 </div>
 </form>
 </div>
