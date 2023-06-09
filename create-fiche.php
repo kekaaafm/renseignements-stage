@@ -225,9 +225,11 @@ if ($_POST) {
             ) {
                 createSessionError("notAllFieldsFilled");
             } else {
-                var_dump($_SESSION["createfiche"][2]);
+//
+//                var_dump($_SESSION["createfiche"][2]);
+//                die;
                 $req = $db->prepare("
-                            INSERT INTO `contact`(`titreContact`, `nomContact`, `prenomContact`, `mobileContact`, `telFixeContact`, `mailContact`, `isRespContact`, `isActifContact`, `idFonction`, `idEntreprise`) 
+                            INSERT INTO `contact`(`titreContact`, `nomContact`, `prenomContact`, `telMobileContact`, `telFixeContact`, `mailContact`, `isRespContact`, `isActifContact`, `idFonction`, `idEntreprise`) 
                                 VALUES (:titreContact,:nomContact,:prenomContact,:mobileContact,:fixeContact,:mailContact,:isRespContact,:isActifContact,:idFonction,:idEntreprise)");
                 $req->execute([
                     "titreContact" => $_POST["titreContact"], //

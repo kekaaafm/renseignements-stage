@@ -39,12 +39,12 @@ if(isset($_GET['delete'])){
 
 
 if (!empty($_POST)){
-//    die(var_dump($statutFiche));
+//die(var_dump($enseignantReferent));
 
-    $req = $db->prepare("UPDATE utilisateur u, eleve e,entreprise en,stage s,section sec, inscription ins, anneescolaire anesco, statutstage st, contact c 
+    $req = $db->prepare("UPDATE utilisateur u, eleve e,entreprise en,stage s,section sec, inscription ins, anneescolaire anesco, statutstage st, contact c
  SET u.nomUtil=:nomEleve, u.prenomUtil=:prenomEleve, u.mailUtil=:mailEleve, s.idStatutStage=:statut, s.idAnneeScolaire=:annee, 
      en.nomEntreprise=:nomEntreprise, en.numAdrEntreprise=:numAdrEntreprise,en.libAdrEntreprise=:adresseEntreprise,en.villeAdrEntreprise=:villeAdrEntreprise,c.nomContact=:nomtuteur,c.prenomContact=:prenomtuteur,c.telMobileContact=:telMobileTuteur,
-     s.dateDebutStage=:dateDebut,s.dateFinStage=:dateFin,s.descriptifStage=:description,s.activiteslStage=:description
+     s.dateDebutStage=:dateDebut,s.dateFinStage=:dateFin,s.idEnseignant=:enseignant,s.descriptifStage=:description,s.activiteslStage=:description
     
 WHERE u.idUtil=e.idEleve AND 
 e.idEleve=s.idEleve AND 
@@ -69,6 +69,7 @@ c.idcontact=s.idcontact AND idStage=:idStage;");
         "telMobileTuteur" => $telMobileEntreprise,
         "dateDebut" => $dateDebut,
         "dateFin" => $dateFin,
+        "enseignant" => $enseignantReferent,
         "description" =>$descriptionStage,
         "idStage" => $id
     ]);
@@ -89,13 +90,10 @@ $prof = $req->fetchAll();
 
 
 $req = $db->prepare("SELECT *
-FROM utilisateur u, eleve e,entreprise en,stage s, section sec, inscription ins, anneescolaire anesco, statutstage st, contact c
+FROM utilisateur u, eleve e,entreprise en,stage s, section sec, statutstage st, contact c
 WHERE u.idUtil=e.idEleve AND 
 e.idEleve=s.idEleve AND 
-en.idEntreprise=s.idEntreprise AND 
-sec.idSection=ins.idSection AND 
-e.idEleve=ins.idEleve AND 
-ins.idAnneeScolaire=anesco.idAnneeScolaire AND
+en.idEntreprise=s.idEntreprise AND
 st.idStatutStage = s.idStatutStage AND 
 c.idcontact=s.idcontact AND idStage=:idStage;");
 $req->execute([
@@ -103,7 +101,7 @@ $req->execute([
 ]);
 $eleve = $req->fetch();
 
-
+//die(var_dump($eleve));
 
 
 ?>
@@ -285,6 +283,7 @@ $eleve = $req->fetch();
                             </select>
                         </div>
 
+
                     </div>
                     <div class="sm:col-span-3">
                         <label for="annee" class="block text-sm font-medium leading-6 text-gray-900">année</label>
@@ -391,7 +390,7 @@ $eleve = $req->fetch();
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                 <?php
                                 foreach ($prof as $profs) {
-                                    echo "<option>" . strtoupper($profs["nomUtil"]) . " " . ucfirst($profs["prenomUtil"]) . "</option>";
+                                    echo "<option value='".$profs["idEnseignant"]."' ". (($eleve["idEnseignant"] === $profs["idEnseignant"])?"selected":"") .">" . strtoupper($profs["nomUtil"]) . " " . ucfirst($profs["prenomUtil"]) . "</option>";
                                 }
                                 ?>
                             </select>

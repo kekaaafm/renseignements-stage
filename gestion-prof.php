@@ -12,6 +12,10 @@ $submit = isset($_POST['submit']);
 $idSection = $_POST['nomsection'] ?? 1;
 $idAnneeScolaire = $_POST['libannee'] ?? 1;
 
+$req = $db->prepare("SELECT * FROM utilisateur u, enseignant e WHERE u.idUtil=e.idEnseignant");
+$req->execute([]);
+$prof = $req->fetchAll();
+//die(var_dump($prof));
 
 $req = $db->prepare("SELECT * FROM anneescolaire");
 $req->execute([]);
@@ -22,15 +26,15 @@ $req->execute([]);
 $classe = $req->fetchAll();
 
 
-$req = $db->prepare("SELECT *
-FROM utilisateur u, eleve e,entreprise en,stage s, section sec, inscription ins, anneescolaire anesco, statutstage st
+$req = $db->prepare("SELECT u.prenomUtil, u.nomUtil, st.libStatutStage, en.nomEntreprise, p.nomUtil as nomProf, p.prenomUtil as prenomProf, s.idStage
+FROM utilisateur u, eleve e,entreprise en,stage s, section sec, inscription ins, anneescolaire anesco, statutstage st, utilisateur p
 WHERE u.idUtil=e.idEleve AND 
 e.idEleve=s.idEleve AND 
 en.idEntreprise=s.idEntreprise AND 
 sec.idSection=ins.idSection AND 
 e.idEleve=ins.idEleve AND 
 ins.idAnneeScolaire=anesco.idAnneeScolaire AND
-st.idStatutStage = s.idStatutStage AND sec.idSection = :nomsection AND s.idAnneeScolaire = :libannee;");
+st.idStatutStage = s.idStatutStage AND sec.idSection = :nomsection AND s.idAnneeScolaire = :libannee AND p.idUtil = s.idEnseignant;");
 $req->execute([
         "nomsection" => $idSection,
         "libannee" => $idAnneeScolaire
@@ -276,13 +280,12 @@ $eleve = $req->fetchAll();
                                     </thead>
                                     <tbody>
                                     <?php foreach ($eleve as $eleves): ?>
+<!--                                        --><?php //die(var_dump($eleves)); ?>
                                         <tr>
                                             <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"><?= $eleves['nomUtil'] ?> <?= $eleves['prenomUtil'] ?></td>
                                             <td class="whitespace-nowrap border-b border-gray-200 hidden px-3 py-4 text-sm text-gray-500 sm:table-cell"><?= $eleves['nomEntreprise'] ?></td>
                                             <td class="whitespace-nowrap border-b border-gray-200 hidden px-3 py-4 text-sm text-gray-500 lg:table-cell"><?= $eleves['libStatutStage'] ?></td>
-                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
-
-                                            </td>
+                                            <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500"><?= $eleves['prenomProf'] . " " . $eleves["nomProf"] ?></td>
                                             <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-8 lg:pr-8">
                                                 <a href="edit-prof.php?id=<?= $eleves["idStage"] ?>" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only"></span></a>
                                             </td>

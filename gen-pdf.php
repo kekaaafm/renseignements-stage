@@ -20,8 +20,8 @@ $req = $db->prepare("SELECT * FROM utilisateur u, enseignant e WHERE u.idUtil=e.
 $req->execute([]);
 $professeur = $req->fetchAll();
 
-$req = $db->prepare("SELECT *
-FROM utilisateur u, eleve e,entreprise en,stage s, section sec, inscription ins, anneescolaire anesco, statutstage st, contact c, fonction f
+$req = $db->prepare("SELECT u.*, e.*, s.*, en.*,  sec.*, ins.*, anesco.*, st.*, c.*, f.*, p.prenomUtil as prenomProf, p.nomUtil as nomProf
+FROM utilisateur u, eleve e,entreprise en,stage s, section sec, inscription ins, anneescolaire anesco, statutstage st, contact c, fonction f, utilisateur p
 WHERE u.idUtil=e.idEleve AND 
 e.idEleve=s.idEleve AND 
 en.idEntreprise=s.idEntreprise AND 
@@ -30,6 +30,7 @@ e.idEleve=ins.idEleve AND
 ins.idAnneeScolaire=anesco.idAnneeScolaire AND
 st.idStatutStage = s.idStatutStage AND 
 c.idcontact=s.idcontact AND 
+p.idUtil = s.idEnseignant AND
 f.idfonction=c.idfonction AND idStage=:idStage;");
 $req->execute([
     "idStage" => $id

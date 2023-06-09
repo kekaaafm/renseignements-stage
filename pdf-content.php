@@ -57,6 +57,7 @@
 </div>
 <h2 style="font-size: 0.8rem">LE LIEU DU STAGE <strong style="text-decoration: underline">(si différent de l'organisme signataire)</strong> :</h2>
 
+<?php if ($eleve["lieuStage"] !== "ok"): ?>
 <div style="width: auto; max-width: 100%; border: 1px solid black;padding: 10px;">
     <h4 style="font-size: 0.6rem">Nom de l'Organisme :  <?= strtoupper($eleve["nomEntreprise"]) ?></h4>
     <div style="display: inline; justify-content: space-between;">
@@ -68,6 +69,21 @@
         <h4 style="display: inline;  white-space: nowrap;font-size: 0.6rem">Fax :</h4>
     </div>
 </div>
+<?php else: ?>
+
+    <div style="width: auto; max-width: 100%; border: 1px solid black;padding: 10px; background-color: #6b7280" class="div-barre">
+        <h4 style="font-size: 0.6rem">Nom de l'Organisme :  </h4>
+        <div style="display: inline; justify-content: space-between;">
+            <h4 style="display: inline;  white-space: nowrap;margin-right: 340px;padding-right: 80px;font-size: 0.6rem">Adresse : </h4>
+            <h4 style="display: inline;  white-space: nowrap;font-size: 0.6rem">Télephone : </h4>
+        </div>
+        <div style="display: inline; justify-content: space-between;">
+            <h4 style="display: inline;  white-space: nowrap;margin-right: 340px;padding-right: 80px;font-size: 0.6rem">CP,Ville : </h4>
+            <h4 style="display: inline;  white-space: nowrap;font-size: 0.6rem">Fax :</h4>
+        </div>
+    </div>
+
+<?php endif; ?>
 <h4>    </h4>
 <div style="width: auto; max-width: 100%;height: 120px;max-height: 100%; border: 1px solid black;padding: 10px;">
     <h4 style="display: block; white-space: pre-wrap;overflow-wrap: break-word;font-size: 0.6rem;">Activités envisagées pour le stagiaire pendant le stage : <br><?=$eleve["descriptifStage"] ?></h4>
@@ -78,7 +94,7 @@
         <h4 style="display: inline;  white-space: nowrap;margin-right: 360px;padding-right: 80px;font-size: 0.6rem">Date :</h4>
         <h4 style="display: inline;white-space: nowrap;font-size: 0.6rem">Signature du professeur responsable :</h4>
 </div>
-    <h4 style="display: inline;  white-space: nowrap;font-size: 0.6rem" value="<?PHP $eleve["idEnseignant"] ?>">Nom de l'enseignant référent :<?= $eleve["nomUtil"] . " " . $eleve["prenomUtil"]?></h4>
+    <h4 style="display: inline;  white-space: nowrap;font-size: 0.6rem"">Nom de l'enseignant référent :<?= $eleve["nomProf"] . " " . $eleve["prenomProf"]?></h4>
 </div>
 <h3 style="margin-top: 50px;font-size: 0.6rem; text-align:center">50 rue de Limayrac - BP 45204, 31079 Toulouse Cedex 5 - Tél 05 61 36 08 08 - Accueil@limayrac.fr</h3>
 </body>
