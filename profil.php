@@ -299,7 +299,7 @@ if (isEleve()) {
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <h3 class="text-sm font-medium text-red-800">Oubs, je pense qu'il y a une coquille
+                                <h3 class="text-sm font-medium text-red-800">Oups, je pense qu'il y a une coquille
                                     quelque
                                     part :(</h3>
                                 <div class="mt-2 text-sm text-red-700">
@@ -323,23 +323,23 @@ if (isEleve()) {
                                   d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
                         </svg>
 
-                        <h3 class="mt-2 text-sm font-semibold text-gray-900">Aucun profil de configuré</h3>
-                        <p class="mt-1 text-sm text-gray-500">En fonction de si vous êtes un étudiant ou un professeur
-                            l'application ne marche pas de la même manière.<br>Dans le cas ou vous êtes un professeur,
-                            merci de contacter un administrateur pour configurer votre professeur</p>
-                        <div class="mt-6">
-                            <button type="button" id="createStudent"
-                                    class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-                                     aria-hidden="true">
-                                    <path
-                                            d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                </svg>
-                                Créer mon profil étudiant
-                            </button>
-                        </div>
-                        <hr class="mt-10">
-                    </div>
+<!--                        <h3 class="mt-2 text-sm font-semibold text-gray-900">Aucun profil de configuré</h3>-->
+<!--                        <p class="mt-1 text-sm text-gray-500">En fonction de si vous êtes un étudiant ou un professeur-->
+<!--                            l'application ne marche pas de la même manière.<br>Dans le cas ou vous êtes un professeur,-->
+<!--                            merci de contacter un administrateur pour configurer votre professeur</p>-->
+<!--                        <div class="mt-6">-->
+<!--                            <button type="button" id="createStudent"-->
+<!--                                    class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">-->
+<!--                                <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"-->
+<!--                                     aria-hidden="true">-->
+<!--                                    <path-->
+<!--                                            d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>-->
+<!--                                </svg>-->
+<!--                                Compléter mon profil étudiant-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                        <hr class="mt-10">-->
+<!--                    </div>-->
 
 
                     <form action="profil.php" method="post" class="mx-auto max-w-2xl" id="profileStudent">
@@ -413,7 +413,7 @@ if (isEleve()) {
                                     </div>
                                 </div>
                             </div>
-                            <div id="studentProfil" class="border-b border-gray-900/10 pb-12" hidden>
+                            <div id="studentProfil" class="border-b border-gray-900/10 pb-12">
                                 <h2 class="mt-3 text-base font-semibold leading-7 text-gray-900">Profil étudiant</h2>
                                 <p class="mt-1 text-sm leading-6 text-gray-600">Ces informations sont les informations
                                     utiles pour le profil d'un étudiant.</p>

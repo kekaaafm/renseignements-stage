@@ -183,7 +183,7 @@ if ((!isset($_POST["email"]) or
                                 value="submit" name="submit">
 
 
-                            Se connecter
+                            Confirmer l'inscription
                         </button>
                     </div>
                 </form>

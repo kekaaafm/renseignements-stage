@@ -288,10 +288,15 @@ if ($_POST) {
                                        class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                        aria-current="page">Dashboard</a>
 
-                                    <a href="profil.php"
-                                       class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
-                                        profil
-                                    </a>
+                                    <?php if (isProf()){
+                                        echo ' <a href="gestion-prof.php"
+                                               class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Gestion Stage</a>';
+                                    } else {
+                                        echo ' <a href="profil.php"
+                                                  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
+                                            profil </a>';
+                                    }
+                                    ?>
 
                                     <a href="logout.php"
                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Déconnexion</a>
@@ -488,7 +493,8 @@ if ($_POST) {
                                 avec les informations fournies dans ton profil. Si elles sont incorrectes,
                                 dirige-toi
                                 directement vers ton profil pour les modifier</p>
-
+                            <h3 class="text-sm font-medium text-red-800">Attention ! Les informations ne seront enregistrer qu'une fois toutes les étapes compléter.</h3>
+                            <div class="mt-2 text-sm text-red-700">
                             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-2">
                                     <label for="prenom"
@@ -602,7 +608,7 @@ if ($_POST) {
                     <div class="mt-6 flex items-center justify-end gap-x-6">
                         <button type="submit"
                                 class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                            Sauvegarder
+                            Etape suivante
                         </button>
                     </div>
                 </form>
@@ -922,7 +928,7 @@ if ($_POST) {
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <button type="submit"
                                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Sauvegarder
+                                Etape suivante
                             </button>
                         </div>
                     </div>
@@ -1106,7 +1112,7 @@ if ($_POST) {
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <button type="submit"
                                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Sauvegarder
+                                Etape suivante
                             </button>
                         </div>
                     </div>
@@ -1149,7 +1155,7 @@ if ($_POST) {
                     <div class="mt-6 flex items-center justify-end gap-x-6">
                         <button type="submit"
                                 class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                            Sauvegarder
+                            Etape suivante
                         </button>
                     </div>
                 </form>

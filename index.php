@@ -35,8 +35,14 @@
             }
 
             $_SESSION["user"] = $rep;
-            header("Location: dashboard.php");
-            die("Everithing okay");
+            if($_SESSION["user"] == isProf()){
+                header("Location: gestion-prof.php");
+                die("Everithing okay");
+            }else{
+                header("Location: dashboard.php");
+                die("Everithing okay");
+            }
+
         }
         createSessionError("invalidCreds");
     }

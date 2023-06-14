@@ -7,6 +7,8 @@ if (!isEleve() && !isProf()) {
     die;
 }
 
+
+
 if (isEleve()) {
     $req = $db->prepare("SELECT * FROM stage,entreprise,statutstage WHERE idEleve = :id AND entreprise.idEntreprise = stage.idEntreprise AND statutstage.idStatutStage=stage.idStatutStage");
     $req->execute([
@@ -39,10 +41,17 @@ if (isEleve()) {
                                         <a href=""
                                            class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                            aria-current="page">Dashboard</a>
+                                        <?php if (isProf()){
+                                            echo ' <a href="gestion-prof.php"
+                                               class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Gestion Stage</a>';
+                                        } else {
+                                            echo ' <a href="profil.php"
+                                                  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
+                                            profil </a>';
+                                        }
+                                        ?>
 
-                                        <a href="profil.php"
-                                           class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
-                                            profil</a>
+
                                         <a href="logout.php"
                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Déconnexion</a>
                                     </div>
@@ -192,8 +201,8 @@ if (isEleve()) {
                                                 <p class="truncate text-sm font-medium text-indigo-600"><?= $stage["titreStage"] ?? "- Sans nom -" ?></p>
                                                 <div class="ml-2 flex flex-shrink-0">
                                                     <?php if(!$stage["libStatutStage"]) ?>
-                                                    <p class="inline-flex rounded-full bg-red-100 px-2 text-xs font-semibold leading-5 text-red-800">
-                                                        Non validé</p>
+                                                    <p class="inline-flex rounded-full bg-blue-300 px-2 text-xs font-semibold leading-5 text-blue-900">
+                                                        <?=$stage["libStatutStage"] ?></p>
                                                 </div>
                                             </div>
                                             <div class="mt-2 sm:flex sm:justify-between">
@@ -249,7 +258,7 @@ if (isEleve()) {
                               stroke-width="2"
                               d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                     </svg>
-                    <h3 class="mt-2 text-sm font-semibold text-gray-900">Pas de fiche stage</h3>
+                    <h3 class="mt-2 text-sm font-semibold text-gray-900">Créer une fiche de stage</h3>
                     <p class="mt-1 text-sm text-gray-500">Si tu veux créer une fiche de stage, c'est avec le bouton
                         juste en dessous.</p>
                     <div class="mt-6">

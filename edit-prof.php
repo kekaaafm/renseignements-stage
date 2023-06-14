@@ -1,12 +1,11 @@
 <?php
 require 'assets/php/header.php';
+loggedVerif(isProf());
 
 if (empty($_GET["id"])) {
     header("Location: gestion-prof.php");
     die;
 }
-
-
 
 
 $id = $_GET["id"];

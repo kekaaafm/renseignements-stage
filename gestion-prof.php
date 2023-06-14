@@ -1,6 +1,6 @@
 <?php
 require 'assets/php/header.php';
-
+loggedVerif(isProf());
 //if (!empty($_POST)){
 //
 //var_dump($_POST);
@@ -68,11 +68,6 @@ $eleve = $req->fetchAll();
                                         <a href="dashboard.php"
                                            class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                            aria-current="page">Dashboard</a>
-
-                                        <a href="profil.php"
-                                           class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
-                                            profil
-                                        </a>
 
                                         <a href="logout.php"
                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Déconnexion</a>

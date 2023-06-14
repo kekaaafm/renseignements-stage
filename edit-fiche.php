@@ -56,10 +56,15 @@ if(isset($_GET['delete'])){
                                            class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                            aria-current="page">Dashboard</a>
 
-                                        <a href="profil.php"
-                                           class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
-                                            profil
-                                        </a>
+                                        <?php if (isProf()){
+                                            echo ' <a href="gestion-prof.php"
+                                               class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Gestion Stage</a>';
+                                        } else {
+                                            echo ' <a href="profil.php"
+                                                  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
+                                            profil </a>';
+                                        }
+                                        ?>
 
                                         <a href="logout.php"
                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Déconnexion</a>
@@ -265,7 +270,7 @@ if(isset($_GET['delete'])){
                                         stage</label>
                                     <div class="mt-2">
                                         <input type="date" id="datedebut" name="datedebut"
-                                               value="<?= $_SESSION["createfiche"][0]["datedebut"] ?>" disabled
+                                               value="<?= $stage["dateDebutStage"] ?>" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         >
                                     </div>
@@ -278,7 +283,7 @@ if(isset($_GET['delete'])){
                                         stage</label>
                                     <div class="mt-2">
                                         <input type="date" id="datefin" name="datefin"
-                                               value="<?= $_SESSION["createfiche"][0]["datefin"] ?>" disabled
+                                               value="<?= $stage["dateFinStage"] ?>" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         >
                                     </div>
@@ -290,7 +295,7 @@ if(isset($_GET['delete'])){
                                         de travail hebdomadaires</label>
                                     <div class="relative mt-2 rounded-md shadow-sm">
                                         <input type="number" name="heures" id="heures"
-                                               value="<?= $_SESSION["createfiche"][0]["heures"] ?>" disabled
+                                               value="<?= $stage["dureeHebdoStage"] ?>" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 pl-3 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         <div
                                                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -347,7 +352,7 @@ if(isset($_GET['delete'])){
                                     <div class="mt-2">
                                         <input type="text" id="classe" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                               value="<?= $entreprise["telephoneEntreprise"] ?>">
+                                               value="<?= $entreprise["telEntreprise"] ?>">
                                     </div>
                                 </div>
 
@@ -469,7 +474,7 @@ if(isset($_GET['delete'])){
                                         téléphone</label>
                                     <div class="mt-2">
                                         <input type="text" name="numContact" id="numContact"
-                                               value="<?= $contact["mobileContact"] ?>" disabled
+                                               value="<?= $contact["telMobileContact"] ?>" disabled
                                                class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </div>
                                 </div>
@@ -510,7 +515,7 @@ if(isset($_GET['delete'])){
                                         envisagées pour le stagiaire pendant le stage</label>
                                     <div class="mt-2">
                                         <textarea type="text" id="description" disabled
-                                                  class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"><?= $_SESSION["createfiche"][0]["description"] ?></textarea>
+                                                  class="bg-slate-100 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"><?= $stage["descriptifStage"] ?></textarea>
                                     </div>
                                 </div>
 
