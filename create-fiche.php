@@ -110,15 +110,15 @@ switch ($step) {
         }
 
         if (!empty($_GET["confirm"]) && $_GET["confirm"] == 1) {
-            $req = $db->prepare("INSERT INTO `stage`(`titreStage`, `descriptifStage`, `dateDebutStage`, `dateFinStage`, `dureeHebdoStage`, `activiteslStage`, `lieuStage`, `idEleve`,`idStatutStage`, `idEntreprise`, `idAnneeScolaire`, `idEnseignant`, `idContact`) 
-                                        VALUES (:titreStage,:descriptifStage,:dateDebutStage,:dateFinStage,:dureeHebdoStage,:activiteslStage,:lieuStage,:idEleve,:idStatutStage,:idEntreprise,:idAnneeScolaire,:idEnseignant,:idTuteur)");
+            $req = $db->prepare("INSERT INTO `stage`(`titreStage`, `descriptifStage`, `dateDebutStage`, `dateFinStage`, `dureeHebdoStage`, `activitesStage`, `lieuStage`, `idEleve`,`idStatutStage`, `idEntreprise`, `idAnneeScolaire`, `idEnseignant`, `idContact`) 
+                                        VALUES (:titreStage,:descriptifStage,:dateDebutStage,:dateFinStage,:dureeHebdoStage,:activitesStage,:lieuStage,:idEleve,:idStatutStage,:idEntreprise,:idAnneeScolaire,:idEnseignant,:idTuteur)");
             $req->execute([
                 "titreStage" => $_SESSION["createfiche"][0]["titre"],
                 "descriptifStage" => $_SESSION["createfiche"][0]["description"],
                 "dateDebutStage" => $_SESSION["createfiche"][0]["datedebut"],
                 "dateFinStage" => $_SESSION["createfiche"][0]["datefin"],
                 "dureeHebdoStage" => $_SESSION["createfiche"][0]["heures"],
-                "activiteslStage" => $_SESSION["createfiche"][0]["description"],
+                "activitesStage" => $_SESSION["createfiche"][0]["description"],
                 "lieuStage" => $adrStage,
                 "idEleve" => $student["idEleve"],
                 "idEntreprise" => $entreprise["idEntreprise"],

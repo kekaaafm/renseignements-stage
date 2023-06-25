@@ -40,17 +40,15 @@ if(isset($_GET['delete'])){
 if (!empty($_POST)){
 //die(var_dump($enseignantReferent));
 
-    $req = $db->prepare("UPDATE utilisateur u, eleve e,entreprise en,stage s,section sec, inscription ins, anneescolaire anesco, statutstage st, contact c
- SET u.nomUtil=:nomEleve, u.prenomUtil=:prenomEleve, u.mailUtil=:mailEleve, s.idStatutStage=:statut, s.idAnneeScolaire=:annee, 
+    $req = $db->prepare("UPDATE utilisateur u, eleve e,entreprise en,stage s,section sec, anneescolaire anesco, statutstage st, contact c
+ SET u.nomUtil=:nomEleve, u.prenomUtil=:prenomEleve, u.mailProUtil=:mailEleve, s.idStatutStage=:statut, s.idAnneeScolaire=:annee, 
      en.nomEntreprise=:nomEntreprise, en.numAdrEntreprise=:numAdrEntreprise,en.libAdrEntreprise=:adresseEntreprise,en.villeAdrEntreprise=:villeAdrEntreprise,c.nomContact=:nomtuteur,c.prenomContact=:prenomtuteur,c.telMobileContact=:telMobileTuteur,
-     s.dateDebutStage=:dateDebut,s.dateFinStage=:dateFin,s.idEnseignant=:enseignant,s.descriptifStage=:description,s.activiteslStage=:description
+     s.dateDebutStage=:dateDebut,s.dateFinStage=:dateFin,s.idEnseignant=:enseignant,s.descriptifStage=:description,s.activitesStage=:description
     
 WHERE u.idUtil=e.idEleve AND 
 e.idEleve=s.idEleve AND 
 en.idEntreprise=s.idEntreprise AND 
-sec.idSection=ins.idSection AND 
-e.idEleve=ins.idEleve AND 
-ins.idAnneeScolaire=anesco.idAnneeScolaire AND
+sec.idSection=e.idSection AND 
 st.idStatutStage = s.idStatutStage AND 
 c.idcontact=s.idcontact AND idStage=:idStage;");
     $req->execute([
@@ -124,15 +122,6 @@ $eleve = $req->fetch();
                             <div class="hidden md:block">
                                 <div class="ml-10 flex items-baseline space-x-4">
                                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-
-                                    <a href="dashboard.php"
-                                       class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                                       aria-current="page">Dashboard</a>
-
-                                    <a href="profil.php"
-                                       class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mon
-                                        profil
-                                    </a>
 
                                     <a href="logout.php"
                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Déconnexion</a>
@@ -264,7 +253,7 @@ $eleve = $req->fetch();
                         <div class="mt-2">
                             <input id="email" name="email" type="email" autocomplete="email"
                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                   value="<?= strtolower($eleve["mailUtil"]) ?>">
+                                   value="<?= strtolower($eleve["mailProUtil"]) ?>">
                         </div>
                     </div>
 

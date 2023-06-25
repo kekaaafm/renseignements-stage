@@ -7,7 +7,7 @@ if (!isset($_SESSION["errors"])) {
     $_SESSION["errors"] = [];
 }
 
-$dsn = 'mysql:host=localhost;dbname=renseignements-stage'; // contient le nom du serveur et de la bdd
+$dsn = 'mysql:host=localhost;dbname=siostagemooo_renseignements-stage'; // contient le nom du serveur et de la bdd
 $user = 'root';
 $password = '';
 try {
@@ -41,7 +41,7 @@ function loggedVerif(bool $shouldBeLoggedIn = true, string $redirection = "/")
 function userExistWithEmailAddress(string $email): bool|array
 {
     global $db;
-    $req = $db->prepare("SELECT * FROM utilisateur WHERE mailUtil = :email");
+    $req = $db->prepare("SELECT * FROM utilisateur WHERE mailProUtil = :email");
     $req->execute([
         "email" => $email
     ]);
@@ -113,7 +113,7 @@ function fetchEntrepriseResponsable(string $id): array|bool
 function fetchclasse(string $idElv): array|bool
 {
     global $db;
-    $req = $db->prepare("SELECT s.idSection, s.nomCourtSection, s.nomLongSection FROM section as s, eleve as e, inscription as i WHERE e.idEleve = i.idEleve AND i.idSection = s.idSection AND e.idEleve = :id");
+    $req = $db->prepare("SELECT s.idSection, s.nomCourtSection, s.nomLongSection FROM section as s, eleve as e WHERE e.idSection = s.idSection AND e.idEleve = :id");
     $req->execute([
         "id" => $idElv
     ]);

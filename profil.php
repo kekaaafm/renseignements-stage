@@ -16,7 +16,7 @@ if ($_POST) {
     if (countSessionErrors() == 0) {
 
 
-        $req = $db->prepare("UPDATE utilisateur SET prenomUtil = :prenom, nomUtil = :nom, mailUtil = :email, mobileUtil = :mobile, mailPersoUtil = :mailPerso WHERE idUtil = :id");
+        $req = $db->prepare("UPDATE utilisateur SET prenomUtil = :prenom, nomUtil = :nom, mailProUtil = :email, mobileUtil = :mobile, mailPersoUtil = :mailPerso WHERE idUtil = :id");
         $req->execute([
             "prenom" => $_POST["prenom"],
             "nom" => $_POST["nom"],
@@ -26,7 +26,7 @@ if ($_POST) {
             "id" => $_SESSION["user"]["idUtil"]
         ]);
 
-        $req = $db->prepare("SELECT idUtil, titreUtil, nomUtil, prenomUtil, mobileUtil, mailPersoUtil, mailUtil FROM utilisateur WHERE idUtil = :id");
+        $req = $db->prepare("SELECT idUtil, titreUtil, nomUtil, prenomUtil, mobileUtil, mailPersoUtil, mailProUtil FROM utilisateur WHERE idUtil = :id");
         $req->execute([
             "id" => $_SESSION["user"]["idUtil"]
         ]);
@@ -91,7 +91,7 @@ if ($_POST && !isProf()) {
                 "villeAdr" => $_POST["ville"],
             ]);
         } else {
-            $req = $db->prepare("INSERT INTO eleve VALUES (:id, :dateanniv, :numadr, :libadr, :codeadr, :villeAdr, :daterentre)");
+            $req = $db->prepare("INSERT INTO eleve VALUES (:id, :dateanniv, :numadr, :libadr, :codeadr, :villeAdr, :daterentre,:idsec)");
             $req->execute([
                 "id" => $_SESSION["user"]["idUtil"],
                 "dateanniv" => $_POST["year"]."-".$_POST["mois"]."-".$_POST["day"],
@@ -99,15 +99,15 @@ if ($_POST && !isProf()) {
                 "libadr" => $_POST["voie"],
                 "codeadr" => $_POST["codePostal"],
                 "villeAdr" => $_POST["ville"],
-                "daterentre" => date('Y-m-d')
+                "daterentre" => date('Y-m-d'),
+                "idsec" => $_POST["section"]
             ]);
 
             $redoublant = (int)((bool)($_POST["redoublant"]??false));
-            $req = $db->prepare("INSERT INTO inscription VALUES (:id, :idannee, :idsec, :annee, :idRedoublement)");
+            $req = $db->prepare("INSERT INTO inscription VALUES (:idannee,:id,:annee, :idRedoublement)");
             $req->execute([
                 "id" => $_SESSION["user"]["idUtil"],
                 "idannee" => $_POST["anneeScolaire"],
-                "idsec" => $_POST["section"],
                 "annee" => 1,
                 "idRedoublement" => $redoublant
             ]);
@@ -376,7 +376,7 @@ if (isEleve()) {
                                             email professionnelle (@limayrac.fr)</label>
                                         <div class="mt-2">
                                             <input id="email" name="email" type="email" autocomplete="email"
-                                                   value="<?= $_SESSION["user"]["mailUtil"] ?>"
+                                                   value="<?= $_SESSION["user"]["mailProUtil"] ?>"
                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         </div>
                                     </div>
@@ -597,7 +597,7 @@ if (isEleve()) {
                                             email professionnelle (@limayrac.fr)</label>
                                         <div class="mt-2">
                                             <input id="email" name="email" type="email" autocomplete="email"
-                                                   value="<?= $_SESSION["user"]["mailUtil"] ?>"
+                                                   value="<?= $_SESSION["user"]["mailProUtil"] ?>"
                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         </div>
                                     </div>

@@ -22,7 +22,7 @@ if ((!isset($_POST["email"]) or
 
     if (countSessionErrors() === 0) {
         var_dump($_POST);
-        $req = $db->prepare("INSERT INTO utilisateur (titreUtil, nomUtil, prenomUtil, mobileUtil, mailUtil, mdpUtil) VALUES (:titre, :nom, :prenom, :mobile, :mail, :mdp)");
+        $req = $db->prepare("INSERT INTO utilisateur (titreUtil, nomUtil, prenomUtil, mobileUtil, mailProUtil, mdpUtil) VALUES (:titre, :nom, :prenom, :mobile, :mail, :mdp)");
         $req->execute([
             "titre" => $_POST["titre"],
             "nom" => $_POST["last_name"],
@@ -32,7 +32,7 @@ if ((!isset($_POST["email"]) or
             "mdp" => password_hash($_POST["password"], PASSWORD_DEFAULT),
         ]);
 
-        $req = $db->prepare("SELECT idUtil, titreUtil, nomUtil, prenomUtil, mobileUtil, mailPersoUtil, mailUtil FROM utilisateur WHERE mailUtil = :mail");
+        $req = $db->prepare("SELECT idUtil, titreUtil, nomUtil, prenomUtil, mobileUtil, mailProUtil, mailPersoUtil FROM utilisateur WHERE mailProUtil = :mail");
         $req->execute([
                 "mail" => $_POST["email"]
         ]);
@@ -93,7 +93,7 @@ if ((!isset($_POST["email"]) or
                 <form class="space-y-6" action="register.php" method="POST">
                     <div>
                         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Adresse
-                            mail</label>
+                            mail (Adresse mail limayrac)</label>
                         <div class="mt-2">
                             <input id="email" name="email" type="email" autocomplete="email" required
                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1

@@ -11,7 +11,7 @@
         }
 
 //        var_dump($_POST);
-        $req = $db->prepare("SELECT * FROM utilisateur WHERE mailUtil = :mail");
+        $req = $db->prepare("SELECT * FROM utilisateur WHERE mailProUtil = :mail");
         $req->execute([
             "mail" => $_POST["email"]
         ]);
@@ -24,7 +24,7 @@
         }
 
         if (password_verify($_POST["password"], $rep["mdpUtil"])) {
-            $req = $db->prepare("SELECT idUtil, titreUtil, nomUtil, prenomUtil, mobileUtil, mailPersoUtil, mailUtil FROM utilisateur WHERE mailUtil = :mail");
+            $req = $db->prepare("SELECT idUtil, titreUtil, nomUtil, prenomUtil, mobileUtil, mailProUtil, mailPersoUtil FROM utilisateur WHERE mailProUtil = :mail");
             $req->execute([
                 "mail" => $_POST["email"]
             ]);

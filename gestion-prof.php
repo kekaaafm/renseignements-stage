@@ -26,14 +26,12 @@ $req->execute([]);
 $classe = $req->fetchAll();
 
 
-$req = $db->prepare("SELECT u.prenomUtil, u.nomUtil, st.libStatutStage, en.nomEntreprise, p.nomUtil as nomProf, p.prenomUtil as prenomProf, s.idStage
-FROM utilisateur u, eleve e,entreprise en,stage s, section sec, inscription ins, anneescolaire anesco, statutstage st, utilisateur p
+$req = $db->prepare("SELECT DISTINCT s.idStage, u.prenomUtil, u.nomUtil, st.libStatutStage, en.nomEntreprise, p.nomUtil as nomProf, p.prenomUtil as prenomProf 
+FROM utilisateur u, eleve e,entreprise en,stage s, section sec, anneescolaire anesco, statutstage st, utilisateur p
 WHERE u.idUtil=e.idEleve AND 
 e.idEleve=s.idEleve AND 
+e.idSection=sec.idSection AND
 en.idEntreprise=s.idEntreprise AND 
-sec.idSection=ins.idSection AND 
-e.idEleve=ins.idEleve AND 
-ins.idAnneeScolaire=anesco.idAnneeScolaire AND
 st.idStatutStage = s.idStatutStage AND sec.idSection = :nomsection AND s.idAnneeScolaire = :libannee AND p.idUtil = s.idEnseignant;");
 $req->execute([
         "nomsection" => $idSection,
@@ -64,10 +62,6 @@ $eleve = $req->fetchAll();
                                 <div class="hidden md:block">
                                     <div class="ml-10 flex items-baseline space-x-4">
                                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-
-                                        <a href="dashboard.php"
-                                           class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                                           aria-current="page">Dashboard</a>
 
                                         <a href="logout.php"
                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Déconnexion</a>
